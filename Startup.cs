@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.SignalR;
 
 namespace signalrDemo
 {
@@ -24,6 +25,14 @@ namespace signalrDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("fiver",
+                policy => policy.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin());
+            });
+            services.adds
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,8 +42,10 @@ namespace signalrDemo
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("fiver");
             app.UseMvc();
+
+            app.usesi
         }
     }
 }
